@@ -44,8 +44,9 @@ def count_col(col, grid, n):
 def count_row(row, grid, n):
 	row_counts_array = []
 	consecutive_count = 0
+	one_row = grid[row]
 	for col in range(n):
-		if grid[row][col] == 1:
+		if one_row[col] == 1:
 			consecutive_count += 1
 		elif consecutive_count > 0:
 			row_counts_array.append(consecutive_count)
@@ -153,16 +154,18 @@ def check_finished(row_counts, col_counts, display_grid):
 	n = len(row_counts)
 	for num in range(n):
 		# check row "num"
+		one_col = col_counts[num]
+		one_row = row_counts[num]
 		display_row_count = count_row(num, display_grid, n)
 		display_col_count = count_col(num, display_grid, n)
-		if len(row_counts[num]) != len(display_row_count) or len(col_counts[num]) != len(display_col_count):
+		if len(one_row) != len(display_row_count) or len(one_col) != len(display_col_count):
 			return False
 		
-		for i in range(len(row_counts[num])):
-			if row_counts[num][i] != display_row_count[i]:
+		for i in range(len(one_row)):
+			if one_row[i] != display_row_count[i]:
 				return False
-		for j in range(len(col_counts[num])):
-			if col_counts[num][j] != display_col_count[j]:
+		for j in range(len(one_col)):
+			if one_col[j] != display_col_count[j]:
 				return False
 	return True
 
